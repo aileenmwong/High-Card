@@ -55,26 +55,37 @@ var game = {
 //If they do, the player is added to the players array. If not, the script continues.
 //prompt user for an additional player to the game
 //if they answer yes, then push a player into the empty array
-
+  //let new Player equal an index in the array of players
+  let newPlayer = this.players[i];
   // get user input and store it in a variable
-  let newPlayer = prompt(`${deal()} Do you want to add a player? `);
-  /* check agains already guessed letters */
-    if(userGuessedArray.includes(userGuess)) {
-      userGuess = prompt(`I think you forgot that you have already tried that letter! ${gameState()} Try again: `);
-    } else {
-      userGuessedArray.push(userGuess);
-    }
-  return userGuess;
+  let newPlayerInput = prompt('Do you want to add a player?');
+    //if they don't input anything, then do nothing
+    if (newPlayerInput === null) {
+      break;
+    //if they input something
+    } else if (input.length === 1) {
+      //increase the number of players
+      (newPlayer++);
+      //push in a new player into the array
+      this.player.push(newPlayer);
+      }
+  },
+
+  deal(){
+//Assigns one card to each player.
+//randomly selects an index from the deck array
+    //loop through the length of the players
+    for (let i = 0; i < players.length; i++) {
+    //pop out a card and assign it to variable card
+    let card = game.deck.pop();\t
+
+    //push the card to the player hand
+    game.hands.push(card);
 }
 
 
- },
- /*
-  deal(){
-//Assigns one card to each player.
-//randomly selects an index from the deck arrya
-
   },
+/*
   findHighestCard(){
 //Finds the player with the highest card.
 //Aces are high. For now, don't worry about ties, nor about one suit being more valuable than another suit.
