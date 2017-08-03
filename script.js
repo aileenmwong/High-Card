@@ -1,5 +1,6 @@
 var values  = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
 var suits   = ["Clubs", "Diamonds", "Hearts", "Spades"];
+var worth = [];
 var game = {
   deck: [],
   players: [],
@@ -11,6 +12,12 @@ var game = {
   //for loop that loops through suits
     //for loop that loops through values
 
+  //add property of worth to card
+
+  //assign a value of worth to each letter / number
+
+  //push those values into an array in order of value
+
     //create an empty object card
     let card = {};
     //loop through the suits
@@ -21,6 +28,8 @@ var game = {
         card.suit = suits[i];
         //assign the value an index value
         card.value = values[j];
+        //assign worth to the each value based on index number(THIS DOESNT SEEM RIGHT)
+        worth.push(values[i]);
         //push the card into the deck
         this.deck.push(card);
         //empty the object for a new card
@@ -74,23 +83,29 @@ var game = {
   deal(){
 //Assigns one card to each player.
 //randomly selects an index from the deck array
-    //loop through the length of the players
+    //loop through all of the players
     for (let i = 0; i < players.length; i++) {
     //pop out a card and assign it to variable card
-    let card = game.deck.pop();\t
-
-    //push the card to the player hand
-    game.hands.push(card);
-}
-
-
+      let card = game.deck.pop();
+    //add to the object card and assign a player
+      cardPlayer = card.player
+    //push the card to the player hand array
+      game.hands.push(card);
+    }
   },
-/*
+
   findHighestCard(){
 //Finds the player with the highest card.
 //Aces are high. For now, don't worry about ties, nor about one suit being more valuable than another suit.
-
 //compare all of the wins to see who has the highest card (like tic tac toe)
+
+  //if card value of player 1 is higher than the value of player 2, then player 1 wins
+  if (card.worth[0] > card.worth[1]) {
+    alert ('Player 1 wins!');
+  //if card value of player 1 is higher than the value of player 2, then player 1 wins
+  } else if (card.worth[0] < card.worth[1]){
+    alert ('Player 2 wins!');
+  }
 
   },
   announceWinners(){
@@ -103,10 +118,14 @@ var game = {
   game.shuffleDeck();
   game.getMorePlayers();
   game.deal();
+  game.findHighestCard();
   game.announceWinners();
   }
-  */
 }
 
 console.log(game.buildDeck());
 console.log(game.shuffleDeck());
+console.log(game.getMorePlayers());
+console.log(game.deal())
+console.log(game.findHighestCard());
+console.log(game.announceWinners());
