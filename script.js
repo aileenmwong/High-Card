@@ -1,39 +1,36 @@
+//worked with Sarah Lund on homework
+
 var values  = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
 var suits   = ["Clubs", "Diamonds", "Hearts", "Spades"];
 var worth = [];
+let card = {};
 var game = {
   deck: [],
   players: [],
   hands: [],
+  counter: 0,
+
+  //HOW DO WE ADD WORTH TO THE CARDS. CAN WE USE THIS:
+  //var worth = values.indexOf(cardValue);
   buildDeck(){
 // Populates the deck array with 52 standard playing cards.
 // loop through all values for each suit and attach value to the suit, then loop through all cards and push into the empty deck
 // as you are looping through the array, push into the empty deck
-  //for loop that loops through suits
-    //for loop that loops through values
 
-  //add property of worth to card
-
-  //assign a value of worth to each letter / number
-
-  //push those values into an array in order of value
-
-    //create an empty object card
-    let card = {};
     //loop through the suits
     for (let i = 0; i < suits.length; i++) {
-      //loop through the values
-      for (let j = 0; j < values.length; j++) {
+    //loop through the values
+    for (let j = 0; j < values.length; j++) {
         //assign the suit an index value
         card.suit = suits[i];
         //assign the value an index value
         card.value = values[j];
-        //assign worth to the each value based on index number(THIS DOESNT SEEM RIGHT)
-        worth.push(values[i]);
+        //add worth to the card
+        card.worth = j + 2;
         //push the card into the deck
         this.deck.push(card);
         //empty the object for a new card
-        card = {};
+          card = {};
       }
     }
     return this.deck;
@@ -64,33 +61,32 @@ var game = {
 //If they do, the player is added to the players array. If not, the script continues.
 //prompt user for an additional player to the game
 //if they answer yes, then push a player into the empty array
-  //let new Player equal an index in the array of players
-  let newPlayer = this.players[i];
   // get user input and store it in a variable
-  let newPlayerInput = prompt('Do you want to add a player?');
-    //if they don't input anything, then do nothing
-    if (newPlayerInput === null) {
-      break;
+  let newPlayerInput = prompt('Enter username or press cancel');
+  //counter starts at 0
+
     //if they input something
-    } else if (input.length === 1) {
-      //increase the number of players
-      (newPlayer++);
-      //push in a new player into the array
-      this.player.push(newPlayer);
+    if (newPlayerInput !== null) {
+      //adding this player at the index of 0 is equal to the object
+      this.players[this.counter] = {};
+      //adding this player at the index of 0 has been attributed a name which is equal to new player input
+      this.players[this.counter].name = newPlayerInput;
       }
+      //add original player to game
+      this.counter++;
+      //return the players
+      return this.players;
   },
 
   deal(){
 //Assigns one card to each player.
 //randomly selects an index from the deck array
     //loop through all of the players
-    for (let i = 0; i < players.length; i++) {
-    //pop out a card and assign it to variable card
-      let card = game.deck.pop();
+    for (let i = 0; i < this.players.length; i++) {
+    //deal out the first card and assign it to variable card
+      let dealCard = game.deck.shift();
     //add to the object card and assign a player
-      cardPlayer = card.player
-    //push the card to the player hand array
-      game.hands.push(card);
+      this.players[i].card = dealCard;
     }
   },
 
@@ -100,17 +96,23 @@ var game = {
 //compare all of the wins to see who has the highest card (like tic tac toe)
 
   //if card value of player 1 is higher than the value of player 2, then player 1 wins
-  if (card.worth[0] > card.worth[1]) {
+  if (this.players[0].card.worth > this.players[1].card.worth){
     alert ('Player 1 wins!');
   //if card value of player 1 is higher than the value of player 2, then player 1 wins
-  } else if (card.worth[0] < card.worth[1]){
+  } else if (this.players[0].card.worth < this.players[1].card.worth){
     alert ('Player 2 wins!');
+  //if card value of player 1 is equal to the value of player 2, then it's a draw
+  } else if (this.players[0].card.worth === this.players[1].card.worth){
+    alert ('Draw!');
   }
+  //store winner into winner variable
+
 
   },
   announceWinners(){
 // Alerts the card each player drew, their name, and their ranking. For example, "Alice is number 1 with the 9 of Spades! Bob is number 2 with the 6 of diamonds!" (Dialogs are annoying.
 //How could you show all this in one alert box, rather than one for each player?)
+    alert('The following winner is:' + winner.toSource());
 
  },
   playANewGame(){
@@ -125,7 +127,8 @@ var game = {
 
 console.log(game.buildDeck());
 console.log(game.shuffleDeck());
+game.getMorePlayers();
 console.log(game.getMorePlayers());
-console.log(game.deal())
-console.log(game.findHighestCard());
+game.deal();
+game.findHighestCard();
 console.log(game.announceWinners());
